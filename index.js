@@ -12,22 +12,11 @@ async function bootstrap() {
 
   console.time("init numbers");
   const numbers = range(0, N).map(() => Math.floor(Math.random() * 10));
+  const xs = Lazy(numbers)
   const square = (x) => x * x;
   const isEven = (x) => x % 2 === 0;
   const add = (acc, x) => acc + x;
   console.timeEnd("init numbers");;
-
-  console.log("");
-
-  await (async () => {
-    console.time(chalk.red("lazy.js"));
-    const sumOfSquares = Lazy(numbers)
-      .map(square)
-      .filter(isEven)
-      .sum();
-    console.log(sumOfSquares);
-    console.timeEnd(chalk.red("lazy.js"));
-  })();
 
   console.log("");
 
@@ -43,8 +32,20 @@ async function bootstrap() {
     }
 
     console.log(sumOfSquares);
-
     console.timeEnd(chalk.blue("for"));
+  })();
+
+  console.log("");
+
+  await (async () => {
+    console.time(chalk.red("lazy.js"));
+    const sumOfSquares = xs
+      .map(square)
+      .filter(isEven)
+      .reduce(add, 0);
+
+    console.log(sumOfSquares);
+    console.timeEnd(chalk.red("lazy.js"));
   })();
 
   console.log("");
@@ -55,6 +56,7 @@ async function bootstrap() {
       .map(square)
       .filter(isEven)
       .reduce(add, 0);
+
     console.log(sumOfSquares);
     console.timeEnd(chalk.magentaBright("fp-like"));
   })();
@@ -80,8 +82,6 @@ async function bootstrap() {
   })();
 
   console.log("");
-
-
 }
 
 bootstrap().finally(async () => { });
