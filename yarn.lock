@@ -41,6 +41,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@fxts/core@npm:^1.0.1":
+  version: 1.0.1
+  resolution: "@fxts/core@npm:1.0.1"
+  dependencies:
+    tslib: "npm:^2.6.0"
+  checksum: 10c0/cf52242bd2e5588b7cfbee68788581f29d1a7d7caad97ae3f94f6da9b0100eb99a003e175b2ab5b762bb5aee0da9f1a2ad1452a8a71dfb134f2af09703221914
+  languageName: node
+  linkType: hard
+
 "@types/pegjs@npm:^0.10.0":
   version: 0.10.6
   resolution: "@types/pegjs@npm:0.10.6"
@@ -432,6 +441,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "fp-benchmark@workspace:."
   dependencies:
+    "@fxts/core": "npm:^1.0.1"
     chalk: "npm:^5.3.0"
     lazy.js: "npm:^0.5.1"
     lodash: "npm:^4.17.21"
@@ -1278,6 +1288,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"tslib@npm:^2.6.0":
+  version: 2.6.3
+  resolution: "tslib@npm:2.6.3"
+  checksum: 10c0/2598aef53d9dbe711af75522464b2104724d6467b26a60f2bdac8297d2b5f1f6b86a71f61717384aa8fd897240467aaa7bcc36a0700a0faf751293d1331db39a
+  languageName: node
+  linkType: hard
+
 "typescript@npm:^5.5.3":
   version: 5.5.3
   resolution: "typescript@npm:5.5.3"
@@ -1290,11 +1307,11 @@ __metadata:
 
 "typescript@patch:typescript@npm%3A^5.5.3#optional!builtin<compat/typescript>":
   version: 5.5.3
-  resolution: "typescript@patch:typescript@npm%3A5.5.3#optional!builtin<compat/typescript>::version=5.5.3&hash=5adc0c"
+  resolution: "typescript@patch:typescript@npm%3A5.5.3#optional!builtin<compat/typescript>::version=5.5.3&hash=379a07"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 10c0/5a437c416251334deeaf29897157032311f3f126547cfdc4b133768b606cb0e62bcee733bb97cf74c42fe7268801aea1392d8e40988cdef112e9546eba4c03c5
+  checksum: 10c0/911c7811d61f57f07df79c4a35f56a0f426a65426a020e5fcd792f66559f399017205f5f10255329ab5a3d8c2d1f1d19530aeceffda70758a521fae1d469432e
   languageName: node
   linkType: hard
 

@@ -1,8 +1,10 @@
-import chalk from "chalk"
+import chalk from "chalk";
 import range from "lodash.range";
 import sum from "lodash.sum";
 import { nonNullable } from "sonamu";
-import Lazy from 'lazy.js'
+import Lazy from "lazy.js";
+import * as fxts from "@fxts/core";
+import * as G from "./utils/generators.js";
 
 console.clear();
 
@@ -12,11 +14,11 @@ async function bootstrap() {
 
   console.time("init numbers");
   const numbers = range(0, N).map(() => Math.floor(Math.random() * 10));
-  const xs = Lazy(numbers)
+  const xs = Lazy(numbers);
   const square = (x) => x * x;
   const isEven = (x) => x % 2 === 0;
   const add = (acc, x) => acc + x;
-  console.timeEnd("init numbers");;
+  console.timeEnd("init numbers");
 
   console.log("");
 
@@ -27,7 +29,6 @@ async function bootstrap() {
     for (let i = 0; i < numbers.length; i++) {
       if (numbers[i] % 2 === 0) {
         sumOfSquares += numbers[i] * numbers[i];
-
       }
     }
 
@@ -39,10 +40,7 @@ async function bootstrap() {
 
   await (async () => {
     console.time(chalk.red("lazy.js"));
-    const sumOfSquares = xs
-      .map(square)
-      .filter(isEven)
-      .reduce(add, 0);
+    const sumOfSquares = xs.map(square).filter(isEven).reduce(add, 0);
 
     console.log(sumOfSquares);
     console.timeEnd(chalk.red("lazy.js"));
@@ -52,10 +50,7 @@ async function bootstrap() {
 
   await (async () => {
     console.time(chalk.magentaBright("fp-like"));
-    const sumOfSquares = numbers
-      .map(square)
-      .filter(isEven)
-      .reduce(add, 0);
+    const sumOfSquares = numbers.map(square).filter(isEven).reduce(add, 0);
 
     console.log(sumOfSquares);
     console.timeEnd(chalk.magentaBright("fp-like"));
@@ -74,14 +69,46 @@ async function bootstrap() {
           }
           return n * n;
         })
-        .filter(nonNullable)
-    )
+        .filter(nonNullable),
+    );
 
     console.log(sumOfSquares);
     console.timeEnd(chalk.green("ts"));
   })();
 
   console.log("");
+
+  await (async () => {
+    console.time(chalk.blue("generator"));
+
+    const sumOfSquares = G.pipe(
+      numbers,
+      G.curriedMap(square),
+      G.curriedFilter(isEven),
+      G.curriedReduce(add, 0),
+    );
+
+    console.log(sumOfSquares);
+    console.timeEnd(chalk.blue("generator"));
+  })();
+
+  console.log("");
+
+  await (async () => {
+    console.time(chalk.red("fxts"));
+
+    const sumOfSquares = fxts.pipe(
+      numbers,
+      fxts.map(square),
+      fxts.filter(isEven),
+      fxts.reduce(add),
+    );
+
+    console.log(sumOfSquares);
+    console.timeEnd(chalk.red("fxts"));
+  })();
+
+  console.log("");
 }
 
-bootstrap().finally(async () => { });
+bootstrap().finally(async () => {});
